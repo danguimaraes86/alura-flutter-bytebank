@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class FormularioTransferencia extends StatelessWidget {
-  const FormularioTransferencia({Key? key}) : super(key: key);
+  FormularioTransferencia({Key? key}) : super(key: key);
+
+  final TextEditingController _textEditingControllerDescricao =
+      TextEditingController();
+  final TextEditingController _textEditingControllerValor =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +16,12 @@ class FormularioTransferencia extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: TextField(
-              decoration: InputDecoration(
+              controller: _textEditingControllerDescricao,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.text_fields),
                 labelText: 'Descrição',
                 hintText: 'Insira uma descrição',
@@ -22,10 +29,12 @@ class FormularioTransferencia extends StatelessWidget {
               keyboardType: TextInputType.text,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: TextField(
-              decoration: InputDecoration(
+              controller: _textEditingControllerValor,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.monetization_on),
                 labelText: 'Valor',
                 hintText: 'Insira o valor. Ex.: 0.00',
@@ -34,7 +43,11 @@ class FormularioTransferencia extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              print('botão clicado');
+              print(_textEditingControllerDescricao.text);
+              print(_textEditingControllerValor.text);
+            },
             child: const Text('Confirmar'),
           ),
         ],
