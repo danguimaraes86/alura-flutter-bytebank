@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:alura_bytebank/lista_de_tranferencias.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
+import 'lista_de_tranferencias.dart';
+import 'formulario_transferencia.dart';
+
+void main() => runApp(const Bytebank());
+
+class Bytebank extends StatelessWidget {
+  const Bytebank({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Conversor de Moedas'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print('teste');
-          },
-          child: const Icon(Icons.add),
-        ),
-        body: const ListaDeTransferencias(),
-      ),
+      home: ListaDeTransferencias(),
       debugShowCheckedModeBanner: false,
-    ),
-  );
+    );
+  }
 }
