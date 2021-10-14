@@ -45,4 +45,9 @@ class Transferencia {
   final String descricao;
 
   Transferencia(this.valor, this.descricao);
+
+  @override
+  String toString() {
+    return "Transferencia: $descricao, $valor ";
+  }
 }
