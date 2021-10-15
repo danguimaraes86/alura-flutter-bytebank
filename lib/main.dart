@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'lista_de_tranferencias.dart';
-import 'formulario_transferencia.dart';
 
-void main() => runApp(Bytebank());
+void main() => runApp(const Bytebank());
 
 class Bytebank extends StatelessWidget {
-  Bytebank({Key? key}) : super(key: key);
+  const Bytebank({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
-      home: FormularioTransferencia(),
+      home: ListaDeTransferencias(),
       debugShowCheckedModeBanner: false,
     );
   }
