@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'lista_de_tranferencias.dart';
 
-void main() => runApp(const Bytebank());
+void main() => runApp(Bytebank());
 
 class Bytebank extends StatelessWidget {
-  const Bytebank({Key? key}) : super(key: key);
+  Bytebank({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
       home: ListaDeTransferencias(),
       debugShowCheckedModeBanner: false,

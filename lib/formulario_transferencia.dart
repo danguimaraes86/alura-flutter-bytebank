@@ -12,7 +12,6 @@ class FormularioTransferencia extends StatelessWidget {
         valor.toString().isNotEmpty &&
         double.tryParse(valor) != null) {
       final novaTransferencia = Transferencia(double.parse(valor), descricao);
-      print(novaTransferencia);
       Navigator.pop(context, novaTransferencia);
     }
   }

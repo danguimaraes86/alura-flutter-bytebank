@@ -2,29 +2,32 @@ import 'package:alura_bytebank/formulario_transferencia.dart';
 import 'package:flutter/material.dart';
 
 class ListaDeTransferencias extends StatelessWidget {
-  const ListaDeTransferencias({Key? key}) : super(key: key);
+  ListaDeTransferencias({Key? key}) : super(key: key);
+  final List<Transferencia> _transferenciasList = [];
 
   @override
   Widget build(BuildContext context) {
+    _transferenciasList.add(Transferencia(10.0, 'cafezinho'));
+    _transferenciasList.add(Transferencia(100.0, 'almoço'));
+    _transferenciasList.add(Transferencia(200.0, 'drinks'));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bytebank'),
       ),
-      body: Column(
-        children: [
-          ItemTransferencia(Transferencia(10.0, 'cafezinho')),
-          ItemTransferencia(Transferencia(100.0, 'almoço')),
-          ItemTransferencia(Transferencia(200.0, 'drinks')),
-        ],
+      body: ListView.builder(
+        itemCount: _transferenciasList.length,
+        itemBuilder: (context, index) {
+          return ItemTransferencia(_transferenciasList[index]);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final Future future =
+          final Future<Transferencia?> future =
               Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FormularioTransferencia();
           }));
           future.then((novaTransferencia) {
-            print('future then');
             print(novaTransferencia);
           });
         },
