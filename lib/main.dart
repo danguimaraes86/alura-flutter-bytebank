@@ -1,6 +1,5 @@
+import 'package:alura_bytebank/pages/transferencias/lista.dart';
 import 'package:flutter/material.dart';
-
-import 'lista_de_tranferencias.dart';
 
 void main() => runApp(const Bytebank());
 
@@ -9,7 +8,7 @@ class Bytebank extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: ListaDeTransferencias(),
       debugShowCheckedModeBanner: false,

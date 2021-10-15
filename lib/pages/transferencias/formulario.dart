@@ -1,4 +1,5 @@
-import 'package:alura_bytebank/lista_de_tranferencias.dart';
+import 'package:alura_bytebank/components/form_input_editor.dart';
+import 'package:alura_bytebank/models/transferencias.dart';
 import 'package:flutter/material.dart';
 
 class FormularioTransferencia extends StatefulWidget {
@@ -14,15 +15,6 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
   final TextEditingController _descricaoController = TextEditingController();
   final TextEditingController _valorController = TextEditingController();
 
-  void criarNovaTransferencia(context, descricao, valor) {
-    if (descricao.toString().isNotEmpty &&
-        valor.toString().isNotEmpty &&
-        double.tryParse(valor) != null) {
-      final novaTransferencia = Transferencia(double.parse(valor), descricao);
-      Navigator.pop(context, novaTransferencia);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +24,14 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            FormEditor(
+            FormInputEditor(
               controller: _descricaoController,
               icon: Icons.text_fields,
               label: 'Descrição',
               hint: 'Insira uma descrição',
               textInputType: TextInputType.text,
             ),
-            FormEditor(
+            FormInputEditor(
               controller: _valorController,
               icon: Icons.monetization_on,
               label: 'Valor',
@@ -48,7 +40,7 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
             ),
             ElevatedButton(
               onPressed: () {
-                criarNovaTransferencia(
+                _criarNovaTransferencia(
                   context,
                   _descricaoController.text,
                   _valorController.text,
@@ -61,37 +53,16 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
       ),
     );
   }
-}
 
-class FormEditor extends StatelessWidget {
-  final TextEditingController controller;
-  final IconData? icon;
-  final String label;
-  final String? hint;
-  final TextInputType? textInputType;
-
-  const FormEditor(
-      {required this.controller,
-      this.icon,
-      required this.label,
-      this.hint,
-      this.textInputType,
-      Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          icon: Icon(icon),
-          labelText: label,
-          hintText: hint,
-        ),
-        keyboardType: textInputType,
-      ),
-    );
+  void _criarNovaTransferencia(context, descricao, valor) {
+    if (descricao.toString().isNotEmpty &&
+        valor.toString().isNotEmpty &&
+        double.tryParse(valor) != null) {
+      final novaTransferencia = Transferencia(
+        valor: double.parse(valor),
+        descricao: descricao,
+      );
+      Navigator.pop(context, novaTransferencia);
+    }
   }
 }

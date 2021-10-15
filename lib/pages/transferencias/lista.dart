@@ -1,9 +1,9 @@
-import 'package:alura_bytebank/formulario_transferencia.dart';
+import 'package:alura_bytebank/models/transferencias.dart';
+import 'package:alura_bytebank/pages/transferencias/formulario.dart';
 import 'package:flutter/material.dart';
 
 class ListaDeTransferencias extends StatefulWidget {
-  ListaDeTransferencias({Key? key}) : super(key: key);
-  final List<Transferencia> _transferenciasList = [];
+  const ListaDeTransferencias({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -12,6 +12,8 @@ class ListaDeTransferencias extends StatefulWidget {
 }
 
 class ListaTransferenciaState extends State<ListaDeTransferencias> {
+  final List<Transferencia> _transferenciasList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,34 +21,36 @@ class ListaTransferenciaState extends State<ListaDeTransferencias> {
         title: const Text('Bytebank'),
       ),
       body: ListView.builder(
-        itemCount: widget._transferenciasList.length,
+        itemCount: _transferenciasList.length,
         itemBuilder: (context, index) {
-          return ItemTransferencia(widget._transferenciasList[index]);
+          return ItemTransferencia(_transferenciasList[index]);
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final Future<Transferencia?> future =
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const FormularioTransferencia();
-          }));
-          future.then((novaTransferencia) {
-            if (novaTransferencia != null) {
-              setState(() {
-                widget._transferenciasList.add(novaTransferencia);
-              });
-            }
-          });
+          })).then(
+              (novaTransferencia) => _addNovaTransferencia(novaTransferencia));
         },
         child: const Icon(Icons.add),
       ),
     );
   }
+
+  void _addNovaTransferencia(novaTransferencia) {
+    if (novaTransferencia != null) {
+      setState(() {
+        _transferenciasList.add(novaTransferencia);
+      });
+    }
+  }
 }
 
 class ItemTransferencia extends StatelessWidget {
-  final Transferencia _transferencia;
   const ItemTransferencia(this._transferencia, {Key? key}) : super(key: key);
+
+  final Transferencia _transferencia;
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +61,5 @@ class ItemTransferencia extends StatelessWidget {
         subtitle: Text(_transferencia.descricao),
       ),
     );
-  }
-}
-
-class Transferencia {
-  final double valor;
-  final String descricao;
-
-  Transferencia(this.valor, this.descricao);
-
-  @override
-  String toString() {
-    return "Transferencia: $descricao, $valor ";
   }
 }
