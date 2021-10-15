@@ -7,13 +7,13 @@ class FormularioTransferencia extends StatelessWidget {
   final TextEditingController _descricaoController = TextEditingController();
   final TextEditingController _valorController = TextEditingController();
 
-  void criarNovaTransferencia(descricao, valor) {
+  void criarNovaTransferencia(context, descricao, valor) {
     if (descricao.toString().isNotEmpty &&
         valor.toString().isNotEmpty &&
         double.tryParse(valor) != null) {
-      Transferencia novaTransferencia =
-          Transferencia(double.parse(valor), descricao);
+      final novaTransferencia = Transferencia(double.parse(valor), descricao);
       print(novaTransferencia);
+      Navigator.pop(context, novaTransferencia);
     }
   }
 
@@ -26,21 +26,26 @@ class FormularioTransferencia extends StatelessWidget {
       body: Column(
         children: [
           FormEditor(
-              controller: _descricaoController,
-              icon: Icons.text_fields,
-              label: 'Descrição',
-              hint: 'Insira uma descrição',
-              textInputType: TextInputType.text),
+            controller: _descricaoController,
+            icon: Icons.text_fields,
+            label: 'Descrição',
+            hint: 'Insira uma descrição',
+            textInputType: TextInputType.text,
+          ),
           FormEditor(
-              controller: _valorController,
-              icon: Icons.monetization_on,
-              label: 'Valor',
-              hint: 'Insira o valor. Ex.: 0.00',
-              textInputType: TextInputType.number),
+            controller: _valorController,
+            icon: Icons.monetization_on,
+            label: 'Valor',
+            hint: 'Insira o valor. Ex.: 0.00',
+            textInputType: TextInputType.number,
+          ),
           ElevatedButton(
             onPressed: () {
               criarNovaTransferencia(
-                  _descricaoController.text, _valorController.text);
+                context,
+                _descricaoController.text,
+                _valorController.text,
+              );
             },
             child: const Text('Confirmar'),
           ),
@@ -57,7 +62,7 @@ class FormEditor extends StatelessWidget {
   final String? hint;
   final TextInputType? textInputType;
 
-  FormEditor(
+  const FormEditor(
       {required this.controller,
       this.icon,
       required this.label,
