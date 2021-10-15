@@ -1,9 +1,16 @@
 import 'package:alura_bytebank/lista_de_tranferencias.dart';
 import 'package:flutter/material.dart';
 
-class FormularioTransferencia extends StatelessWidget {
-  FormularioTransferencia({Key? key}) : super(key: key);
+class FormularioTransferencia extends StatefulWidget {
+  const FormularioTransferencia({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() {
+    return FormularioTransferenciaState();
+  }
+}
+
+class FormularioTransferenciaState extends State<FormularioTransferencia> {
   final TextEditingController _descricaoController = TextEditingController();
   final TextEditingController _valorController = TextEditingController();
 
@@ -22,33 +29,35 @@ class FormularioTransferencia extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Nova Transferência'),
       ),
-      body: Column(
-        children: [
-          FormEditor(
-            controller: _descricaoController,
-            icon: Icons.text_fields,
-            label: 'Descrição',
-            hint: 'Insira uma descrição',
-            textInputType: TextInputType.text,
-          ),
-          FormEditor(
-            controller: _valorController,
-            icon: Icons.monetization_on,
-            label: 'Valor',
-            hint: 'Insira o valor. Ex.: 0.00',
-            textInputType: TextInputType.number,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              criarNovaTransferencia(
-                context,
-                _descricaoController.text,
-                _valorController.text,
-              );
-            },
-            child: const Text('Confirmar'),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FormEditor(
+              controller: _descricaoController,
+              icon: Icons.text_fields,
+              label: 'Descrição',
+              hint: 'Insira uma descrição',
+              textInputType: TextInputType.text,
+            ),
+            FormEditor(
+              controller: _valorController,
+              icon: Icons.monetization_on,
+              label: 'Valor',
+              hint: 'Insira o valor. Ex.: 0.00',
+              textInputType: TextInputType.number,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                criarNovaTransferencia(
+                  context,
+                  _descricaoController.text,
+                  _valorController.text,
+                );
+              },
+              child: const Text('Confirmar'),
+            ),
+          ],
+        ),
       ),
     );
   }
